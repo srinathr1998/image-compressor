@@ -20,6 +20,10 @@ async function parseArguments() {
     );
     process.exit(1);
   }
+  if(typeof parseInt(args[2]) != "number" || isNaN(parseInt(args[2]))){
+    console.log("Please give valid quality percentage (0-100) for .jpeg and zliblevel(0-9) for .png images as argument!");
+    process.exit(1);
+  }
   const level = parseInt(args[2]);
   return { inputImagePath, outputImagePath, level };
 }
@@ -46,6 +50,12 @@ async function compressPng(
   zlibLevel: number = 2
 ) {
   try {
+    if(zlibLevel){
+        if(zlibLevel<0 || zlibLevel>9){
+            zlibLevel=2;
+        }
+    }
+    console.log("Resizing with zliblevel : ",zlibLevel);
     const inputImageBuffer = await sharp(filePath).png().toBuffer();
     const compressedImageBuffer = await sharp(inputImageBuffer)
       .png({
@@ -64,6 +74,12 @@ async function compressJpeg(
   quality: number = 80
 ) {
   try {
+    if(quality){
+        if(quality<0 || quality>100){
+            quality=80;
+        }
+    }
+    console.log("Resizing with quality percentage : ",quality);
     const compressedImageBuffer = await sharp(filePath)
       .jpeg({
         quality: quality,
@@ -77,7 +93,7 @@ async function compressJpeg(
 }
 
 async function run() {
-  const { inputImagePath, outputImagePath, level } = await parseArguments();
+  let { inputImagePath, outputImagePath, level } = await parseArguments();
   if (
     getExtName(inputImagePath) == ".jpg" ||
     getExtName(inputImagePath) == ".jpeg"
