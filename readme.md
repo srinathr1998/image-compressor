@@ -1,0 +1,1 @@
+Simple cli wrapper around the Sharp library to resize .png and .jpeg images. Created solely for personal learning. 

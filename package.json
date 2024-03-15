@@ -1,0 +1,24 @@
+{
+  "name": "imagecompressor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "bin": {
+    "imagecompressor" : "dist/index.js"
+  },
+  "scripts": {
+    "build": "gulp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.28",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "typescript": "^5.4.2"
+  }
+}
